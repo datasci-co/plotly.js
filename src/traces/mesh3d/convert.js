@@ -105,16 +105,16 @@ proto.update = function(data) {
 
     var config = {
         positions: positions,
-        cells:     cells,
-        ambient:   data.lighting.ambient,
-        diffuse:   data.lighting.diffuse,
-        specular:  data.lighting.specular,
+        cells: cells,
+        ambient: data.lighting.ambient,
+        diffuse: data.lighting.diffuse,
+        specular: data.lighting.specular,
         roughness: data.lighting.roughness,
-        fresnel:   data.lighting.fresnel,
-        opacity:   data.opacity,
-        contourEnable:   data.contour.show,
-        contourColor:    str2RgbaArray(data.contour.color).slice(0,3),
-        contourWidth:    data.contour.width,
+        fresnel: data.lighting.fresnel,
+        opacity: data.opacity,
+        contourEnable: data.contour.show,
+        contourColor: str2RgbaArray(data.contour.color).slice(0,3),
+        contourWidth: data.contour.width,
         useFacetNormals: data.flatshading
     };
 
@@ -123,13 +123,13 @@ proto.update = function(data) {
         config.vertexIntensity = data.intensity;
         config.colormap = parseColorScale(data.colorscale);
     }
-    else if(data.vertexColor) {
-        this.color = data.vertexColor[0];
-        config.vertexColors = parseColorArray(data.vertexColor);
+    else if(data.vertexcolor) {
+        this.color = data.vertexcolors[0];
+        config.vertexColors = parseColorArray(data.vertexcolor);
     }
-    else if(data.faceColor) {
-        this.color = data.faceColor[0];
-        config.cellColors = parseColorArray(data.faceColor);
+    else if(data.facecolor) {
+        this.color = data.facecolor[0];
+        config.cellColors = parseColorArray(data.facecolor);
     }
     else {
         this.color = data.color;
@@ -141,7 +141,7 @@ proto.update = function(data) {
 };
 
 proto.dispose = function() {
-    this.glplot.remove(this.mesh);
+    this.scene.glplot.remove(this.mesh);
     this.mesh.dispose();
 };
 

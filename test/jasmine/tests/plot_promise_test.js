@@ -3,8 +3,11 @@ var Events = require('@src/lib/events');
 var createGraphDiv = require('../assets/create_graph_div');
 var destroyGraphDiv = require('../assets/destroy_graph_div');
 
+
 describe('Plotly.___ methods', function() {
     'use strict';
+
+    afterEach(destroyGraphDiv);
 
     describe('Plotly.plot promise', function() {
         var promise,
@@ -15,12 +18,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.plot(createGraphDiv(), data, {});
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -48,13 +50,12 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.plot(gd, data, {});
 
-            promise.then(null, function(){
+            promise.then(null, function() {
                 promiseRejected = true;
                 done();
             });
         });
 
-        afterEach(destroyGraphDiv);
 
         it('should be rejected when plotly_beforeplot event handlers return false', function() {
             expect(promiseRejected).toBe(true);
@@ -75,13 +76,12 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.plot(gd, data, {});
 
-            promise.then(null, function(){
+            promise.then(null, function() {
                 promiseRejected = true;
                 done();
             });
         });
 
-        afterEach(destroyGraphDiv);
 
         it('should reject the promise when graph is being dragged', function() {
             expect(promiseRejected).toBe(true);
@@ -100,12 +100,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.redraw(initialDiv);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -124,12 +123,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.newPlot(createGraphDiv(), data, {});
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -151,12 +149,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.extendTraces(initialDiv, { y: [[2]] }, [0], 3);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -178,12 +175,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.prependTraces(initialDiv, { y: [[2]] }, [0], 3);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -205,12 +201,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.addTraces(initialDiv, [{ x: [1,2,3], y: [1,2,3] }], [1]);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -232,12 +227,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.deleteTraces(initialDiv, [0]);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -259,12 +253,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.deleteTraces(initialDiv, [0]);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -289,12 +282,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.moveTraces(initialDiv, 0, 1);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -316,12 +308,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.restyle(initialDiv, 'marker.color', 'rgb(255,0,0)');
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -343,12 +334,11 @@ describe('Plotly.___ methods', function() {
 
             promise = Plotly.restyle(initialDiv, undefined, '');
 
-            promise.then(null, function(){
+            promise.then(null, function() {
                 promiseRejected = true;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be rejected when the attribute is missing', function() {
             expect(promiseRejected).toBe(true);
@@ -361,19 +351,18 @@ describe('Plotly.___ methods', function() {
 
         beforeEach(function(done) {
             var data = [{ x: [1,2,3], y: [4,5,6] }],
-                layout = {hovermode:'closest'},
+                layout = {hovermode: 'closest'},
                 initialDiv = createGraphDiv();
 
             Plotly.plot(initialDiv, data, layout);
 
             promise = Plotly.relayout(initialDiv, 'hovermode', false);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -389,19 +378,18 @@ describe('Plotly.___ methods', function() {
 
         beforeEach(function(done) {
             var data = [{ x: [1,2,3], y: [4,5,6] }],
-                layout = {hovermode:'closest'},
+                layout = {hovermode: 'closest'},
                 initialDiv = createGraphDiv();
 
             Plotly.plot(initialDiv, data, layout);
 
             promise = Plotly.relayout(initialDiv, 'hovermode', false);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div as an argument', function() {
             expect(promiseGd).toBeDefined();
@@ -417,7 +405,7 @@ describe('Plotly.___ methods', function() {
 
         beforeEach(function(done) {
             var data = [{ x: [1,2,3], y: [4,5,6] }],
-                layout = {hovermode:'closest'},
+                layout = {hovermode: 'closest'},
                 initialDiv = createGraphDiv();
 
             Plotly.plot(initialDiv, data, layout);
@@ -425,12 +413,11 @@ describe('Plotly.___ methods', function() {
             initialDiv.framework = { isPolar: true };
             promise = Plotly.relayout(initialDiv, 'hovermode', false);
 
-            promise.then(function(gd){
+            promise.then(function(gd) {
                 promiseGd = gd;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be returned with the graph div unchanged when the framework is polar', function() {
             expect(promiseGd).toBeDefined();
@@ -445,19 +432,18 @@ describe('Plotly.___ methods', function() {
 
         beforeEach(function(done) {
             var data = [{ x: [1,2,3], y: [4,5,6] }],
-                layout = {hovermode:'closest'},
+                layout = {hovermode: 'closest'},
                 initialDiv = createGraphDiv();
 
             Plotly.plot(initialDiv, data, layout);
 
             promise = Plotly.relayout(initialDiv, undefined, false);
 
-            promise.then(null, function(){
+            promise.then(null, function() {
                 promiseRejected = true;
                 done();
             });
         });
-        afterEach(destroyGraphDiv);
 
         it('should be rejected when the attribute is missing', function() {
             expect(promiseRejected).toBe(true);

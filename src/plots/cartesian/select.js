@@ -87,7 +87,7 @@ module.exports = function prepSelect(e, startX, startY, dragOptions, mode) {
         return function(v) { return ax.p2d(v[index]); };
     }
 
-    function ascending(a, b){ return a - b; }
+    function ascending(a, b) { return a - b; }
 
     dragOptions.moveFn = function(dx0, dy0) {
         var poly,
@@ -171,6 +171,8 @@ module.exports = function prepSelect(e, startX, startY, dragOptions, mode) {
                 searchInfo = searchTraces[i];
                 searchInfo.selectPoints(searchInfo, false);
             }
+
+            gd.emit('plotly_deselect', null);
         }
         else {
             dragOptions.gd.emit('plotly_selected', eventData);

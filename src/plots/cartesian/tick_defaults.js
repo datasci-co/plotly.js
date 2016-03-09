@@ -29,29 +29,29 @@ module.exports = function handleTickDefaults(containerIn, containerOut, coerce, 
         delete containerOut.tickcolor;
     }
 
+    var showAttrDflt = getShowAttrDflt(containerIn);
+
+    var tickPrefix = coerce('tickprefix');
+    if(tickPrefix) coerce('showtickprefix', showAttrDflt);
+
+    var tickSuffix = coerce('ticksuffix');
+    if(tickSuffix) coerce('showticksuffix', showAttrDflt);
+
     var showTickLabels = coerce('showticklabels');
     if(showTickLabels) {
         Lib.coerceFont(coerce, 'tickfont', options.font || {});
         coerce('tickangle');
 
-        var showAttrDflt = getShowAttrDflt(containerIn);
-
         if(axType !== 'category') {
             var tickFormat = coerce('tickformat');
-            if(!options.noHover) coerce('hoverformat');
-
             if(!tickFormat && axType !== 'date') {
                 coerce('showexponent', showAttrDflt);
                 coerce('exponentformat');
             }
         }
-
-        var tickPrefix = coerce('tickprefix');
-        if(tickPrefix) coerce('showtickprefix', showAttrDflt);
-
-        var tickSuffix = coerce('ticksuffix');
-        if(tickSuffix) coerce('showticksuffix', showAttrDflt);
     }
+
+    if(axType !== 'category' && !options.noHover) coerce('hoverformat');
 };
 
 /*
@@ -72,13 +72,14 @@ function getShowAttrDflt(containerIn) {
     var showAttrsAll = ['showexponent',
                         'showtickprefix',
                         'showticksuffix'],
-        showAttrs = showAttrsAll.filter(function(a){
+        showAttrs = showAttrsAll.filter(function(a) {
             return containerIn[a]!==undefined;
         }),
-        sameVal = function(a){
+        sameVal = function(a) {
             return containerIn[a]===containerIn[showAttrs[0]];
         };
-    if (showAttrs.every(sameVal) || showAttrs.length===1) {
+
+    if(showAttrs.every(sameVal) || showAttrs.length===1) {
         return containerIn[showAttrs[0]];
     }
 }
